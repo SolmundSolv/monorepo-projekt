@@ -3,16 +3,89 @@
 
 generator client {
     provider = "prisma-client-js"
-    output   = "../.generated/client"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+    provider = "sqlite"
+    url      = "file:./db.sqlite"
 }
 
-model Post {
-    id      String @id @default(cuid())
-    title   String
-    content String
+model Product {
+    id          String    @id @default(cuid())
+    name        String    @default("Product")
+    price       Decimal   @default(0)
+    img         String    @default("")
+    description String    @default("Descripton")
+    category    Category? @relation(fields: [categoryId], references: [id])
+    categoryId  String?
+    orders      Order[]
+}
+
+model Category {
+    id          String    @id @default(cuid())
+    name        String    @default("Category")
+    description String    @default("Description")
+    products    Product[]
+}
+
+model Order {
+    id           String      @id @default(cuid())
+    number       Int         @unique
+    contractor   Contractor  @relation(fields: [contractorId], references: [id])
+    contractorId String
+    status       OrderStatus @relation(fields: [statusId], references: [id])
+    statusId     String
+    price        Decimal
+    createdAt    DateTime    @default(now())
+    products     Product[]
+}
+
+model OrderStatus {
+    id        String   @id @default(cuid())
+    name      String
+    orders    Order[]
+    createdAt DateTime @default(now())
+}
+
+model Contractor {
+    id        String    @id @default(cuid())
+    name      String
+    phone     String?
+    lastOrder DateTime?
+    createdAt DateTime  @default(now())
+    adress    Adress    @relation(fields: [adressId], references: [id])
+    adressId  String
+    Orders    Order[]
+}
+
+model Adress {
+    id         String       @id @default(cuid())
+    street     String
+    building   String
+    unit       String?
+    city       String
+    zip        String
+    createdAt  DateTime     @default(now())
+    contractor Contractor[]
+}
+
+model Employee {
+    id         String   @id @default(cuid())
+    firstName  String
+    lastName   String
+    position   Position @relation(fields: [positionId], references: [id])
+    positionId String
+    hiredAt    DateTime
+}
+
+model Position {
+    id            String     @id @default(cuid())
+    name          String
+    defaultSalary Decimal
+    employers     Employee[]
+}
+
+model Raports {
+    id        String   @id @default(cuid())
+    createdAt DateTime
 }

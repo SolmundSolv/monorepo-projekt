@@ -9,9 +9,9 @@ import { prisma } from "@acme/db";
 type CreateContextOptions = Record<string, never>;
 
 /** Use this helper for:
- *  - testing, where we dont have to Mock Next.js' req/res
- *  - trpc's `createSSGHelpers` where we don't have req/res
- */
+ * - testing, where we dont have to Mock Next.js' req/res
+ * - trpc's `createSSGHelpers` where we don't have req/res
+ **/
 export const createContextInner = async (opts: CreateContextOptions) => {
     return {
         prisma,
@@ -26,6 +26,6 @@ export const createContext = async (opts: trpcNext.CreateNextContextOptions) => 
     return await createContextInner({});
 };
 
-export type Context = trpc.inferAsyncReturnType<typeof createContext>;
+type Context = trpc.inferAsyncReturnType<typeof createContext>;
 
 export const createRouter = () => trpc.router<Context>();
