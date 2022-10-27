@@ -19,6 +19,7 @@ model Product {
     category    Category? @relation(fields: [categoryId], references: [id])
     categoryId  String?
     orders      Order[]
+    isActive    Boolean   @default(true)
 }
 
 model Category {

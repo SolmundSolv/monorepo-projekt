@@ -1,9 +1,11 @@
+import { AppRouter } from "@acme/api";
+import { inferProcedureOutput } from "@trpc/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
 const confirmOrder = async (req: NextApiRequest, res: NextApiResponse) => {
     let itemsList = "";
-    req.body.items.map((i: string, index: number) => (itemsList += `${index + 1}. ${i.name}\n`));
+    req.body.items.map((i: inferProcedureOutput<AppRouter["product"]["byId"]>, index: number) => (itemsList += `${index + 1}. ${i?.name}\n`));
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {

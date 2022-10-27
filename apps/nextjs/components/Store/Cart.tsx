@@ -1,11 +1,9 @@
-import { AppRouter } from "@acme/api";
 import { Dialog, Transition } from "@headlessui/react";
-import { inferProcedureOutput } from "@trpc/server";
 import Link from "next/link";
-import React, { Fragment } from "react";
+import React, { Dispatch, Fragment, SetStateAction } from "react";
 import { useStateContext } from "../../context/StateContext";
 
-const Cart = ({ open, setOpen }) => {
+const Cart = ({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) => {
     const ctx = useStateContext();
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -34,9 +32,9 @@ const Cart = ({ open, setOpen }) => {
                         <Dialog.Panel className="absolute top-0 right-0 bottom-0 flex w-full max-w-md flex-col overflow-y-auto bg-white pb-12 shadow-xl dark:bg-gray-800 dark:text-white">
                             <div className="p-6">
                                 <ul>
-                                    {ctx?.cartItems.map((item: inferProcedureOutput<AppRouter["product"]["all"]>, index: number) => (
-                                        <li key={item.id}>
-                                            {index + 1} {item.name}{" "}
+                                    {ctx?.cartItems.map((item, index: number) => (
+                                        <li key={item?.id}>
+                                            {index + 1} {item?.name}{" "}
                                             <button type="button" onClick={() => ctx.onRemove(item)}>
                                                 X
                                             </button>

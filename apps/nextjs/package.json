@@ -22,7 +22,9 @@
     "@trpc/react": "10.0.0-proxy-beta.13",
     "@trpc/server": "10.0.0-proxy-beta.13",
     "axios": "^1.1.3",
+    "date-fns": "^2.29.3",
     "flowbite-react": "^0.2.1",
+    "formidable": "^2.0.1",
     "multer": "^1.4.5-lts.1",
     "next": "12.3.1",
     "next-connect": "^0.13.0",
@@ -36,6 +38,7 @@
     "zod": "^3.18.0"
   },
   "devDependencies": {
+    "@types/formidable": "^2.0.5",
     "@types/multer": "^1.4.7",
     "@types/node": "^18.0.0",
     "@types/nodemailer": "^6.4.6",

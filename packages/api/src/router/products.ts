@@ -16,7 +16,7 @@ export const productRouter = t.router({
             return ctx.prisma.product.create({ data: { name: input.name, price: input.price, img: input.img, description: input.description, categoryId: input.categoryId } });
         }),
     all: t.procedure.query(({ ctx }) => {
-        return ctx.prisma.product.findMany();
+        return ctx.prisma.product.findMany({ where: { isActive: true } });
     }),
     byId: t.procedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
         return ctx.prisma.product.findFirst({ where: { id: input.id } });
@@ -33,6 +33,14 @@ export const productRouter = t.router({
                 id: true,
                 name: true,
             },
+        });
+    }),
+    delete: t.procedure.input(z.object({ id: z.string() })).mutation(({ ctx, input }) => {
+        return ctx.prisma.product.update({
+            data: {
+                isActive: false,
+            },
+            where: { id: input.id },
         });
     }),
 });
