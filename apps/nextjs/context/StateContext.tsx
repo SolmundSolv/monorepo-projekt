@@ -16,7 +16,7 @@ const Context = createContext<AppContextProps | null>(null);
 const StateContext: React.FC<React.ReactNode> = ({ children }: any) => {
     const cart: Product[] = [];
     const [cartItems, setCartItems] = useState(cart);
-    const [totalPrice, setTotalPrice] = useState();
+    const [totalPrice, setTotalPrice] = useState(0);
     let foundProduct: Product | undefined;
     const onAdd = (item: Product) => {
         if (cartItems.find((product: Product) => product?.id === item?.id)) {
@@ -24,7 +24,7 @@ const StateContext: React.FC<React.ReactNode> = ({ children }: any) => {
         }
         if (cartItems || item) setCartItems([...cartItems, { ...item }]);
         setTotalPrice((currPrice) => {
-            return item?.price + currPrice;
+            return parseInt(item?.price) + currPrice;
         });
     };
     const onRemove = (item: Product) => {

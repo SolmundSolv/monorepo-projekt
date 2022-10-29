@@ -1,7 +1,6 @@
 import { AppRouter } from "@acme/api";
 import { Transition, Dialog } from "@headlessui/react";
 import { inferProcedureOutput } from "@trpc/server";
-import axios from "axios";
 import Link from "next/link";
 import React, { ChangeEvent, Dispatch, FormEvent, Fragment, ReactElement, SetStateAction, useRef, useState } from "react";
 import AdminLayout from "../../../../components/Admin/AdminLayout";
@@ -87,7 +86,7 @@ function AddForm({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStateA
             //     }
             // };
             // hxr.send(formData);
-            const response = fetch("/api/uploadFile", {
+            fetch("/api/uploadFile", {
                 method: "POST",
                 body: formData,
             });

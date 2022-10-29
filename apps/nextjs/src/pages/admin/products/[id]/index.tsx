@@ -7,12 +7,13 @@ import { NextPageWithLayout } from "../../../_app";
 const ExactProduct: NextPageWithLayout = () => {
     function handleDelete(id: string) {
         mutation.mutate({ id: id });
+        router.back();
     }
 
     const router = useRouter();
     const { id } = router.query;
     const mutation = trpc.product.delete.useMutation();
-    const { data: product, isLoading } = trpc.product.byId.useQuery({ id: id?.toString() ?? "0" });
+    const { data: product } = trpc.product.byId.useQuery({ id: id?.toString() ?? "0" });
     return (
         <div>
             {product?.name} {product?.price.toString()} {product?.description} {product?.img}

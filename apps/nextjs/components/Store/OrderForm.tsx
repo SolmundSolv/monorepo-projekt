@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import React, { useRef } from "react";
 import { useStateContext } from "../../context/StateContext";
+import { trpc } from "../../src/utils/trpc";
 
 const OrderForm: NextPage = () => {
     const ctx = useStateContext();
@@ -8,6 +9,7 @@ const OrderForm: NextPage = () => {
     const companyRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const phoneRef = useRef<HTMLInputElement>(null);
+    const mutation = trpc.order.create.useMutation();
 
     function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -21,6 +23,17 @@ const OrderForm: NextPage = () => {
                 items: ctx?.cartItems,
             };
         }
+
+        const products: string[] = [];
+        ctx?.cartItems.map((i) => products.push(i?.id ?? ""));
+        console.log(products);
+        mutation.mutate({
+            number: 2,
+            contractor: "cl9sf91900002tk2sv350dhti",
+            price: ctx?.totalPrice ?? 0,
+            status: "cl9sfz1xz0003tk2se0jt74m6",
+            products: products,
+        });
 
         const hxr = new XMLHttpRequest();
         hxr.open("POST", "/api/confirmOrder");

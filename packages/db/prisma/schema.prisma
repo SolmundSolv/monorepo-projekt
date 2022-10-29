@@ -90,3 +90,12 @@ model Raports {
     id        String   @id @default(cuid())
     createdAt DateTime
 }
+
+// model ProductsOnOrders {
+//     product   Product? @relation(fields: [productId], references: [id])
+//     productId String
+//     Order     Order?   @relation(fields: [orderId], references: [id])
+//     orderId   String
+
+//     @@unique([productId, orderId])
+// }

@@ -2,6 +2,7 @@ import { AppRouter } from "@acme/api";
 import { inferProcedureOutput } from "@trpc/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
+import { trpc } from "../../utils/trpc";
 
 const confirmOrder = async (req: NextApiRequest, res: NextApiResponse) => {
     let itemsList = "";
