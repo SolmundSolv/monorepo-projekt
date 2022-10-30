@@ -9,7 +9,26 @@ import { useStateContext } from "../../context/StateContext";
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
 }
-const Navbar = ({ navigation }) => {
+
+type nav = {
+    categories: {
+        id: string;
+        name: string;
+        sections: {
+            id: string;
+            name: string;
+            items: {
+                name: string;
+                href: string;
+            }[];
+        }[];
+    }[];
+    pages: {
+        name: string;
+        href: string;
+    }[];
+};
+const Navbar = ({ navigation }: { navigation: nav }) => {
     const [open, setOpen] = useState(false);
     const ctx = useStateContext();
 
