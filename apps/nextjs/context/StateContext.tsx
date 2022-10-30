@@ -22,7 +22,7 @@ const StateContext = ({ children }: any) => {
         if (cartItems.find((product: Product) => product?.id === item?.id)) {
             return;
         }
-        if (cartItems || item) setCartItems([...cartItems, { ...item }]);
+        if (cartItems || item) setCartItems((cartItems) => [...cartItems, item]);
         setTotalPrice((currPrice) => {
             return parseInt(item?.price.toString() ?? "0") + currPrice;
         });
