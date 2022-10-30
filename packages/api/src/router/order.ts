@@ -13,7 +13,7 @@ export const orderRoputer = t.router({
             })
         )
         .mutation(({ ctx, input }) => {
-            const connect = [];
+            const connect: { id: string }[] = [];
             input.products.map((e) => {
                 connect.push({ id: e });
             });
