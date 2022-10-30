@@ -34,7 +34,9 @@ const StateContext = ({ children }: any) => {
         }
         const newCartItems = cartItems.filter((product: Product) => product?.id !== foundProduct?.id);
         setCartItems(newCartItems);
-        setTotalPrice(totalPrice - foundProduct.price.toNumber());
+        setTotalPrice((currPrice) => {
+            return currPrice - parseInt(item?.price.toString() ?? "0");
+        });
     };
     return (
         <Context.Provider

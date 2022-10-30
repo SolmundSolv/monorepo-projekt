@@ -29,7 +29,7 @@ const Category: NextPageWithLayout = () => {
                 <h2 className="sr-only">Products</h2>
 
                 <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {products?.map((res: { id: string }) => (
+                    {products?.map((res) => (
                         <Item item={res} key={res.id} />
                     ))}
                 </div>
