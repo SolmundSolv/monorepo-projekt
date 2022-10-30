@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const navigation = {
@@ -48,7 +49,7 @@ const Sidebar = () => {
         <div className="sticky z-40 flex flex-col h-screen">
             <div>Logo</div>
             <div>
-                <a href="/admin/products">Products</a>
+                <Link href={"/admin/products"}>Products</Link>
             </div>
         </div>
     );
