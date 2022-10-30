@@ -1,11 +1,30 @@
 import { Dialog, Tab, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React, { Fragment, useState } from "react";
+import React, { Dispatch, Fragment, SetStateAction } from "react";
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
 }
-const MobileMenu = ({ navigation, open, setOpen }) => {
+
+type nav = {
+    categories: {
+        id: string;
+        name: string;
+        sections: {
+            id: string;
+            name: string;
+            items: {
+                name: string;
+                href: string;
+            }[];
+        }[];
+    }[];
+    pages: {
+        name: string;
+        href: string;
+    }[];
+};
+const MobileMenu = ({ navigation, open, setOpen }: { navigation: nav; open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) => {
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>

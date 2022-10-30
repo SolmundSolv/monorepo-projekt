@@ -62,7 +62,8 @@ const navigation = {
     ],
 };
 
-export default function Layout({ children }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Layout({ children }: any) {
     const [open, setOpen] = useState(false);
 
     return (

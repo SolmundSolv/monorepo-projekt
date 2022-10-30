@@ -13,7 +13,7 @@ interface AppContextProps {
 const Context = createContext<AppContextProps | null>(null);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const StateContext: React.FC<React.ReactNode> = ({ children }: any) => {
+const StateContext = ({ children }: any) => {
     const cart: Product[] = [];
     const [cartItems, setCartItems] = useState(cart);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -24,7 +24,7 @@ const StateContext: React.FC<React.ReactNode> = ({ children }: any) => {
         }
         if (cartItems || item) setCartItems([...cartItems, { ...item }]);
         setTotalPrice((currPrice) => {
-            return parseInt(item?.price) + currPrice;
+            return parseInt(item?.price.toString() ?? "0") + currPrice;
         });
     };
     const onRemove = (item: Product) => {
@@ -34,7 +34,7 @@ const StateContext: React.FC<React.ReactNode> = ({ children }: any) => {
         }
         const newCartItems = cartItems.filter((product: Product) => product?.id !== foundProduct?.id);
         setCartItems(newCartItems);
-        setTotalPrice(totalPrice - foundProduct.price);
+        setTotalPrice(totalPrice - foundProduct.price.toNumber());
     };
     return (
         <Context.Provider
